@@ -1106,6 +1106,27 @@ export default function App() {
           onClose={() => setShowReport(false)}
         />
       )}
+
+      {showInfo && (
+        <InfoModal
+          onClose={() => setShowInfo(false)}
+          lang={lang}
+        />
+      )}
+
+      <footer className="app-footer">
+        <p>
+          © 2026 X · O: Tic-Tac-Toe — Desarrollado por{' '}
+          <a href="https://www.linkedin.com/in/pablogguizar/" target="_blank" rel="noopener noreferrer">
+            Pablo G. Guízar
+          </a>
+          . Código abierto bajo licencia MIT disponible en{' '}
+          <a href="https://github.com/PabloGGuizar/tic-tac-toe" target="_blank" rel="noopener noreferrer">
+            GitHub
+          </a>
+          .
+        </p>
+      </footer>
     </div>
   );
 }

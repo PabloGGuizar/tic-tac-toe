@@ -1,16 +1,31 @@
-# React + Vite
+# X · O: Tic-Tac-Toe
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+[Read in English](README.en.md)
 
-Currently, two official plugins are available:
+Un juego moderno y dinámico de Tres en Raya (Tic-Tac-Toe) desarrollado en React. No es solo un juego clásico, sino que también incluye un motor de Inteligencia Artificial capaz de analizar sus jugadas y un panel para visualizar cómo "piensa" la IA al tomar decisiones mediante el algoritmo Minimax.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## 🤖 El Algoritmo Minimax
+El motor de este juego utiliza el algoritmo **Minimax**, una regla de decisión utilizada en teoría de juegos e inteligencia artificial para minimizar la posible pérdida máxima. 
 
-## React Compiler
+En la práctica, la IA simula todas las jugadas posibles hasta el final de la partida (victoria, derrota o empate) y evalúa los resultados:
+- **+10 puntos** si la IA gana.
+- **-10 puntos** si el humano gana.
+- **0 puntos** si hay empate.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+La IA asume que el jugador humano jugará de la mejor manera posible, por lo que selecciona el movimiento que maximice su puntaje asumiendo que el rival intentará minimizarlo. Esto hace que la IA en la dificultad más alta sea matemáticamente invencible (en el peor de los casos, la partida siempre terminará en empate).
 
-## Expanding the ESLint configuration
+## 🚀 Características Principales
+- **Inteligencia Artificial (Minimax):** Juega contra una IA invencible en dificultad difícil, o ajusta la dificultad a nivel medio o fácil.
+- **Visualizador del Árbol de Decisiones:** Mira en tiempo real las jugadas posibles que la IA está evaluando y la puntuación asignada a cada movimiento.
+- **Modo Oscuro / Claro:** Cambia la apariencia de la interfaz con un clic.
+- **Multilingüe:** Interfaz disponible en español e inglés.
+- **Reportes de Partida:** Al finalizar cada juego, visualiza un reporte detallado jugada a jugada para analizar el desarrollo de la partida.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## 💻 Cómo Ejecutar Localmente
+1. Clona este repositorio en tu computadora.
+2. Instala las dependencias del proyecto ejecutando `npm install`.
+3. Inicia el servidor de desarrollo con `npm run dev`.
+4. Abre la dirección local en tu navegador para empezar a jugar.
+
+---
+*Desarrollado por [Pablo G. Guízar](https://www.linkedin.com/in/pablogguizar/) | Licencia MIT*

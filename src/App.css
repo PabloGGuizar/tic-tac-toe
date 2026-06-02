@@ -1735,7 +1735,32 @@ body {
   .tree-panel--hidden {
     transform: translateY(-10px) scale(0.97);
     max-height: 0;
-    max-width: 440px;
   }
+}
+
+/* ─────────────────────────────────────────────
+   FOOTER
+───────────────────────────────────────────── */
+.app-footer {
+  margin-top: 30px;
+  padding: 20px 0 10px;
+  text-align: center;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  width: 100%;
+  max-width: 600px;
+  line-height: 1.6;
+}
+
+.app-footer a {
+  color: var(--x-color);
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.2s;
+}
+
+.app-footer a:hover {
+  color: var(--o-color);
+  text-decoration: underline;
 }
 

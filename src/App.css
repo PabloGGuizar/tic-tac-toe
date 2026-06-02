@@ -176,6 +176,23 @@ body {
   transition: background 0.4s ease, color 0.4s ease;
 }
 
+/* Two-column layout when tree is visible */
+.game-layout {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 0;
+  width: 100%;
+  max-width: 1100px;
+  transition: gap 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.game-layout--with-tree {
+  gap: 28px;
+}
+
 .container {
   position: relative;
   z-index: 1;
@@ -185,6 +202,7 @@ body {
   gap: 24px;
   width: 100%;
   max-width: 440px;
+  flex-shrink: 0;
 }
 
 /* ─────────────────────────────────────────────
@@ -585,6 +603,280 @@ body {
 }
 
 /* ─────────────────────────────────────────────
+   END-GAME ACTIONS (restart + download)
+───────────────────────────────────────────── */
+.end-actions {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: center;
+  animation: btnIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.btn-download {
+  padding: 14px 28px;
+  border: none;
+  border-radius: 50px;
+  background: linear-gradient(135deg, #0891b2, #0e7490);
+  color: #fff;
+  font-family: 'Outfit', sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  letter-spacing: 0.04em;
+  box-shadow: 0 0 24px #0891b260, 0 4px 16px rgba(0,0,0,0.4);
+  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.2s;
+  animation: btnIn 0.4s 0.08s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+.btn-download:hover {
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 0 36px #0891b280, 0 8px 24px rgba(0,0,0,0.4);
+}
+
+.btn-download:active {
+  transform: translateY(0) scale(0.97);
+}
+/* ─────────────────────────────────────────────
+   REPORT MODAL STYLES
+───────────────────────────────────────────── */
+.report-modal {
+  max-width: 680px;
+  width: 95%;
+  max-height: 90vh;
+  overflow-y: auto;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.report-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 24px;
+}
+
+.report-meta-item {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 10px 14px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  flex: 1;
+  min-width: 120px;
+}
+
+.report-meta-label {
+  font-size: 0.65rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #64748b;
+}
+
+.report-meta-value {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #f1f5f9;
+}
+
+.report-meta-value--x { color: #4ade80; }
+.report-meta-value--o { color: #f87171; }
+.report-meta-value--draw { color: #fcd34d; }
+
+.report-card {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 20px;
+  padding: 24px;
+  margin-bottom: 20px;
+}
+
+.report-h3 {
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  margin-bottom: 14px;
+  color: #e2e8f0;
+}
+
+.report-narrative {
+  font-size: 0.9rem;
+  line-height: 1.7;
+  color: #94a3b8;
+  white-space: pre-wrap;
+}
+
+.report-moves {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.report-move-row {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+  padding: 14px 16px;
+  border-radius: 12px;
+}
+
+.report-move-row--o {
+  background: rgba(56, 189, 248, 0.05);
+  border: 1px solid rgba(56, 189, 248, 0.15);
+}
+
+.report-move-row--x {
+  background: rgba(244, 114, 182, 0.05);
+  border: 1px solid rgba(244, 114, 182, 0.15);
+}
+
+.report-move-num {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  flex-shrink: 0;
+}
+
+.report-move-num span {
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #64748b;
+}
+
+.report-move-num strong {
+  font-size: 1.4rem;
+  font-weight: 900;
+}
+
+.report-move-row--o .report-move-num strong { color: #38bdf8; }
+.report-move-row--x .report-move-num strong { color: #f472b6; }
+
+.report-move-details {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding-top: 4px;
+}
+
+.report-move-badge-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.report-player-badge {
+  font-size: 0.75rem;
+  font-weight: 800;
+  padding: 3px 10px;
+  border-radius: 50px;
+  border: 1px solid;
+}
+
+.report-player-badge--o {
+  background: rgba(56, 189, 248, 0.15);
+  color: #38bdf8;
+  border-color: rgba(56, 189, 248, 0.3);
+}
+
+.report-player-badge--x {
+  background: rgba(244, 114, 182, 0.15);
+  color: #f472b6;
+  border-color: rgba(244, 114, 182, 0.3);
+}
+
+.report-cell-pos {
+  font-size: 0.8rem;
+  color: #94a3b8;
+}
+
+.report-score-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.report-score-label {
+  font-size: 0.72rem;
+  color: #64748b;
+}
+
+.report-score-val {
+  font-size: 0.78rem;
+  font-weight: 800;
+  padding: 2px 8px;
+  border-radius: 6px;
+}
+
+.report-score-val--pos {
+  background: rgba(34, 197, 94, 0.15);
+  color: #4ade80;
+}
+
+.report-score-val--neg {
+  background: rgba(239, 68, 68, 0.15);
+  color: #f87171;
+}
+
+.report-score-val--neu {
+  background: rgba(251, 191, 36, 0.15);
+  color: #fcd34d;
+}
+
+.report-score-val-rand {
+  color: #475569;
+  font-size: 0.78rem;
+}
+
+.report-final-result {
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.report-final-result--x { color: #4ade80; }
+.report-final-result--o { color: #f87171; }
+.report-final-result--draw { color: #fcd34d; }
+
+/* Mini Board in Report */
+.report-mini-board {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  width: 90px;
+  height: 90px;
+  gap: 2px;
+  flex-shrink: 0;
+}
+
+.rm-cell {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.rm-cell--x { background: #f472b610; border-color: #f472b650; }
+.rm-cell--o { background: #38bdf810; border-color: #38bdf850; }
+.rm-cell--win { background: #fbbf2420; border-color: #fbbf24; }
+
+.rm-cell svg {
+  width: 60%;
+  height: 60%;
+}
+
+.rm-cell--x svg line { stroke: #f472b6; stroke-width: 14; }
+.rm-cell--o svg circle { stroke: #38bdf8; stroke-width: 12; }
+
+/* ─────────────────────────────────────────────
    TOOLBAR (top-right fixed)
 ───────────────────────────────────────────── */
 .toolbar {
@@ -917,6 +1209,480 @@ body {
 }
 
 /* ─────────────────────────────────────────────
+   ACTIVE TREE TOGGLE BUTTON
+───────────────────────────────────────────── */
+.tool-btn--active {
+  background: rgba(124, 58, 237, 0.18) !important;
+  border-color: rgba(124, 58, 237, 0.5) !important;
+  color: #a78bfa !important;
+  box-shadow: 0 0 12px rgba(124,58,237,0.3);
+}
+
+/* ─────────────────────────────────────────────
+   DECISION TREE PANEL
+───────────────────────────────────────────── */
+.tree-panel {
+  width: 340px;
+  flex-shrink: 0;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  backdrop-filter: blur(20px);
+  box-shadow: var(--shadow);
+  max-height: 80vh;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(124,58,237,0.3) transparent;
+  /* Animation */
+  transform-origin: left center;
+  transition:
+    opacity 0.35s cubic-bezier(0.4,0,0.2,1),
+    transform 0.35s cubic-bezier(0.4,0,0.2,1),
+    max-width 0.35s cubic-bezier(0.4,0,0.2,1),
+    margin 0.35s cubic-bezier(0.4,0,0.2,1);
+}
+
+.tree-panel::-webkit-scrollbar { width: 4px; }
+.tree-panel::-webkit-scrollbar-track { background: transparent; }
+.tree-panel::-webkit-scrollbar-thumb { background: rgba(124,58,237,0.3); border-radius: 10px; }
+
+.tree-panel--visible {
+  opacity: 1;
+  transform: translateX(0) scale(1);
+  max-width: 340px;
+  pointer-events: all;
+}
+
+.tree-panel--hidden {
+  opacity: 0;
+  transform: translateX(-20px) scale(0.96);
+  max-width: 0;
+  overflow: hidden;
+  pointer-events: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+}
+
+.tree-panel__header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 16px 18px 12px;
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  background: var(--surface);
+  backdrop-filter: blur(20px);
+  z-index: 1;
+}
+
+.tree-panel__icon { font-size: 1.1rem; }
+
+.tree-panel__title {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--text);
+  flex: 1;
+  letter-spacing: -0.01em;
+}
+
+/* Pulsing dot when AI is thinking */
+.tree-panel__thinking-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--o-color);
+  box-shadow: 0 0 8px var(--o-glow);
+  animation: thinkingPulse 1s ease-in-out infinite;
+  flex-shrink: 0;
+}
+
+@keyframes thinkingPulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.4); opacity: 0.6; }
+}
+
+.tree-panel__body {
+  padding: 14px;
+}
+
+.tree-panel__empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 24px 16px;
+  text-align: center;
+  color: var(--text-muted);
+}
+
+.tree-panel__empty-icon { font-size: 2rem; }
+.tree-panel__empty p { font-size: 0.83rem; line-height: 1.55; }
+
+.tree-panel__tree {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* ─────────────────────────────────────────────
+   TREE LEGEND
+───────────────────────────────────────────── */
+.tree-legend {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  padding: 8px 10px;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+}
+
+.tree-legend-item {
+  font-size: 0.68rem;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 50px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.tree-legend-item--x {
+  background: rgba(244,114,182,0.15);
+  color: var(--x-color);
+  border: 1px solid rgba(244,114,182,0.3);
+}
+
+.tree-legend-item--o {
+  background: rgba(56,189,248,0.15);
+  color: var(--o-color);
+  border: 1px solid rgba(56,189,248,0.3);
+}
+
+.tree-legend-item--pos {
+  background: rgba(34,197,94,0.12);
+  color: #4ade80;
+  border: 1px solid rgba(34,197,94,0.3);
+}
+
+.tree-legend-item--neg {
+  background: rgba(239,68,68,0.12);
+  color: #f87171;
+  border: 1px solid rgba(239,68,68,0.3);
+}
+
+/* ─────────────────────────────────────────────
+   TREE ROOT
+───────────────────────────────────────────── */
+.tree-root-label {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+}
+
+.tree-root-box {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  background: rgba(124,58,237,0.15);
+  border: 1px solid rgba(124,58,237,0.4);
+  border-radius: 50px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #a78bfa;
+}
+
+.tree-root-score {
+  font-size: 0.75rem;
+  opacity: 0.7;
+}
+
+.tree-root-connector {
+  width: 1px;
+  height: 10px;
+  background: rgba(124,58,237,0.35);
+  margin: 2px auto 0;
+}
+
+/* ─────────────────────────────────────────────
+   LEVEL 1 NODES
+───────────────────────────────────────────── */
+.tree-level-1 {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  max-height: 52vh;
+  overflow-y: auto;
+  padding-right: 4px;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(124,58,237,0.2) transparent;
+}
+
+.tree-level-1::-webkit-scrollbar { width: 3px; }
+.tree-level-1::-webkit-scrollbar-thumb { background: rgba(124,58,237,0.2); border-radius: 10px; }
+
+.tree-level-1-item {
+  display: flex;
+  flex-direction: column;
+}
+
+/* ─────────────────────────────────────────────
+   TREE NODE (tn-*)
+───────────────────────────────────────────── */
+.tn-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  border-radius: 12px;
+  transition: background 0.2s;
+}
+
+.tn-wrapper--chosen {
+  background: rgba(251,191,36,0.05);
+}
+
+.tn-box {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 10px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  transition: border-color 0.2s, box-shadow 0.2s;
+  cursor: default;
+  position: relative;
+  overflow: hidden;
+}
+
+.tn-box:hover {
+  border-color: rgba(255,255,255,0.15);
+}
+
+.tn-box--positive {
+  border-color: rgba(34,197,94,0.25);
+  background: rgba(34,197,94,0.04);
+}
+
+.tn-box--negative {
+  border-color: rgba(239,68,68,0.25);
+  background: rgba(239,68,68,0.04);
+}
+
+.tn-box--neutral {
+  border-color: rgba(251,191,36,0.2);
+  background: rgba(251,191,36,0.04);
+}
+
+.tn-box--chosen {
+  border-color: var(--winner-color) !important;
+  background: rgba(251,191,36,0.10) !important;
+  box-shadow: 0 0 16px rgba(251,191,36,0.25), inset 0 0 8px rgba(251,191,36,0.08);
+  animation: chosenGlow 1.5s ease-in-out infinite alternate;
+}
+
+@keyframes chosenGlow {
+  from { box-shadow: 0 0 10px rgba(251,191,36,0.2); }
+  to   { box-shadow: 0 0 22px rgba(251,191,36,0.4); }
+}
+
+/* Player badge */
+.tn-player {
+  font-size: 0.72rem;
+  font-weight: 800;
+  width: 22px;
+  height: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  flex-shrink: 0;
+  letter-spacing: 0;
+}
+
+.tn-player--x {
+  background: rgba(244,114,182,0.15);
+  color: var(--x-color);
+  border: 1px solid rgba(244,114,182,0.35);
+}
+
+.tn-player--o {
+  background: rgba(56,189,248,0.15);
+  color: var(--o-color);
+  border: 1px solid rgba(56,189,248,0.35);
+}
+
+/* Cell position */
+.tn-cell {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1px;
+  font-size: 1rem;
+  line-height: 1;
+  flex-shrink: 0;
+  width: 24px;
+}
+
+.tn-cell-num {
+  font-size: 0.55rem;
+  color: var(--text-muted);
+  font-weight: 600;
+  line-height: 1;
+}
+
+/* Score */
+.tn-score {
+  font-size: 0.85rem;
+  font-weight: 800;
+  margin-left: auto;
+  padding: 2px 8px;
+  border-radius: 6px;
+  letter-spacing: -0.02em;
+  flex-shrink: 0;
+}
+
+.tn-score--positive {
+  color: #4ade80;
+  background: rgba(34,197,94,0.1);
+}
+
+.tn-score--negative {
+  color: #f87171;
+  background: rgba(239,68,68,0.1);
+}
+
+.tn-score--neutral {
+  color: #fcd34d;
+  background: rgba(251,191,36,0.1);
+}
+
+/* Chosen badge */
+.tn-chosen-badge {
+  position: absolute;
+  top: 3px;
+  right: 6px;
+  font-size: 0.6rem;
+  font-weight: 700;
+  color: var(--winner-color);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+/* ─────────────────────────────────────────────
+   TREE NODE CHILDREN (level 2)
+───────────────────────────────────────────── */
+.tn-children {
+  display: flex;
+  flex-direction: column;
+  padding-left: 20px;
+}
+
+.tn-children-line {
+  width: 1px;
+  height: 6px;
+  background: var(--border);
+  margin-left: 10px;
+}
+
+.tn-children-row {
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+}
+
+.tn-child-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+}
+
+.tn-connector-v {
+  width: 1px;
+  height: 6px;
+  background: var(--border);
+}
+
+/* Child nodes are smaller */
+.tn-children .tn-box {
+  padding: 4px 7px;
+  gap: 5px;
+  font-size: 0.75rem;
+}
+
+.tn-children .tn-player {
+  width: 18px;
+  height: 18px;
+  font-size: 0.62rem;
+  border-radius: 5px;
+}
+
+.tn-children .tn-cell {
+  font-size: 0.8rem;
+  width: 18px;
+}
+
+.tn-children .tn-score {
+  font-size: 0.72rem;
+  padding: 1px 5px;
+}
+
+/* ─────────────────────────────────────────────
+   TREE DEPTH INFO
+───────────────────────────────────────────── */
+.tree-depth-info {
+  text-align: center;
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  opacity: 0.6;
+  padding-top: 4px;
+  border-top: 1px solid var(--border);
+  margin-top: 4px;
+}
+
+/* ─────────────────────────────────────────────
+   LIGHT MODE — Tree panel overrides
+───────────────────────────────────────────── */
+.app--light .tree-panel {
+  background: rgba(255,255,255,0.80);
+  border-color: rgba(148,163,200,0.35);
+}
+
+.app--light .tree-panel__header {
+  background: rgba(255,255,255,0.80);
+  border-color: rgba(148,163,200,0.25);
+}
+
+.app--light .tree-legend {
+  background: rgba(240,244,255,0.6);
+  border-color: rgba(148,163,200,0.25);
+}
+
+.app--light .tn-box {
+  background: rgba(255,255,255,0.75);
+  border-color: rgba(148,163,200,0.35);
+}
+
+.app--light .tn-box--positive {
+  background: rgba(34,197,94,0.07);
+  border-color: rgba(34,197,94,0.3);
+}
+
+.app--light .tn-box--negative {
+  background: rgba(239,68,68,0.07);
+  border-color: rgba(239,68,68,0.3);
+}
+
+.app--light .tn-box--neutral {
+  background: rgba(251,191,36,0.07);
+  border-color: rgba(251,191,36,0.25);
+}
+
+/* ─────────────────────────────────────────────
    RESPONSIVE
 ───────────────────────────────────────────── */
 @media (max-width: 400px) {
@@ -934,4 +1700,26 @@ body {
   .tree-node { width: 30px; height: 30px; }
   .tree-node--sm { width: 24px; height: 24px; font-size: 0.55rem; }
   .tree-node--root { width: 36px; height: 36px; }
+}
+
+/* Mobile: tree panel goes below the board */
+@media (max-width: 860px) {
+  .game-layout--with-tree {
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .tree-panel {
+    width: 100%;
+    max-width: 440px;
+    max-height: 360px;
+    transform-origin: top center;
+  }
+
+  .tree-panel--hidden {
+    transform: translateY(-10px) scale(0.97);
+    max-height: 0;
+    max-width: 440px;
+  }
 }

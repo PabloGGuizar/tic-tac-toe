@@ -1685,25 +1685,40 @@ body {
 /* ─────────────────────────────────────────────
    RESPONSIVE
 ───────────────────────────────────────────── */
-@media (max-width: 400px) {
-  .board { gap: 8px; padding: 14px; }
-  .square { width: clamp(80px, 28vw, 110px); }
+@media (max-width: 480px) {
+  .app { padding: 16px 8px; }
+  .board { gap: 8px; padding: 12px; }
+  .square { width: clamp(65px, 24vw, 90px); }
   .scoreboard { gap: 8px; }
-  .score-value { font-size: 1.6rem; }
-  .diff-btn { padding: 7px 12px; font-size: 0.8rem; }
-  .toolbar { top: 12px; right: 12px; gap: 6px; }
-  .tool-btn { padding: 7px 10px; }
-  .modal { border-radius: 18px; }
+  .score-value { font-size: 1.5rem; }
+  .diff-btn { padding: 8px 10px; font-size: 0.75rem; }
+  
+  .title { font-size: clamp(1.8rem, 8vw, 2.2rem); }
+  .subtitle { font-size: 0.8rem; }
+  
+  .toolbar { top: 10px; right: 10px; gap: 6px; }
+  .tool-btn { padding: 6px 10px; font-size: 0.75rem; }
+  
+  .modal { border-radius: 16px; width: 95%; }
   .modal__header { padding: 16px 16px 0; }
   .modal__body { padding: 14px 16px; }
-  .modal__close-btn { width: calc(100% - 32px); margin: 0 16px 16px; }
-  .tree-node { width: 30px; height: 30px; }
+  .modal__close-btn { width: calc(100% - 32px); margin: 0 16px 16px; padding: 10px; font-size: 0.9rem; }
+  
+  .tree-node { width: 30px; height: 30px; font-size: 0.7rem; }
   .tree-node--sm { width: 24px; height: 24px; font-size: 0.55rem; }
-  .tree-node--root { width: 36px; height: 36px; }
+  .tree-node--root { width: 36px; height: 36px; font-size: 0.85rem; }
+  
+  .btn-restart, .btn-download { padding: 12px 24px; font-size: 0.9rem; }
+  
+  /* Make report move details more compact */
+  .report-move-row { padding: 12px; gap: 10px; flex-direction: column; align-items: stretch; }
+  .report-mini-board { align-self: center; }
+  .report-move-num { flex-direction: row; justify-content: center; gap: 8px; align-items: baseline; }
 }
 
 /* Mobile: tree panel goes below the board */
 @media (max-width: 860px) {
+  .game-layout,
   .game-layout--with-tree {
     flex-direction: column;
     align-items: center;
@@ -1713,7 +1728,7 @@ body {
   .tree-panel {
     width: 100%;
     max-width: 440px;
-    max-height: 360px;
+    max-height: 420px;
     transform-origin: top center;
   }
 
@@ -1723,3 +1738,4 @@ body {
     max-width: 440px;
   }
 }
+
